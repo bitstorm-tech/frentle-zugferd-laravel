@@ -13,6 +13,8 @@ use horstoeko\zugferd\ZugferdDocumentBuilder;
 use horstoeko\zugferdlaravel\Facades\ZugferdLaravel;
 use Illuminate\Support\Facades\Log;
 
+use function storage_path;
+
 class XmlService
 {
     public function generateAndStoreXml(string $outputPath, array $xmlData): void
