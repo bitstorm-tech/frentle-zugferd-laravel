@@ -7,6 +7,7 @@ use horstoeko\zugferd\codelists\ZugferdCurrencyCodes;
 use horstoeko\zugferd\codelists\ZugferdElectronicAddressScheme;
 use horstoeko\zugferd\codelists\ZugferdInvoiceType;
 use horstoeko\zugferd\codelists\ZugferdReferenceCodeQualifiers;
+use horstoeko\zugferd\codelists\ZugferdUnitCodes;
 use horstoeko\zugferd\codelists\ZugferdVatCategoryCodes;
 use horstoeko\zugferd\codelists\ZugferdVatTypeCodes;
 use horstoeko\zugferd\ZugferdDocumentBuilder;
@@ -134,6 +135,9 @@ class XmlService
             case 'deliveryDate':
                 $document->setDocumentSupplyChainEvent(DateTime::createFromFormat('Ymd', '20250101'));
                 break;
+            case 'positions':
+                $this->addPositions($document, $value);
+                break;
             case 'tax':
                 $document->addDocumentTax(
                     ZugferdVatCategoryCodes::STAN_RATE,
@@ -154,7 +158,23 @@ class XmlService
                 break;
 
             default:
-                Log::error("Unknown key '{$key}' with value '{$value}'");
+                Log::error("Unknown key: '{$key}'");
+        }
+    }
+
+    private function addPositions(ZugferdDocumentBuilder $document, array $positions): void
+    {
+        foreach ($positions as $position) {
+            $document->addNewPosition($position['positionId']);
+            $document->setDocumentPositionProductDetails($position['productDetails']);
+            $document->setDocumentPositionNetPrice((float) $position['netPrice']);
+            $document->setDocumentPositionQuantity((float) $position['quantity'], ZugferdUnitCodes::REC20_PIECE);
+            $document->addDocumentPositionTax(
+                ZugferdVatCategoryCodes::STAN_RATE,
+                ZugferdVatTypeCodes::VALUE_ADDED_TAX,
+                (float) $position['tax']
+            );
+            $document->setDocumentPositionLineSummation((float) $position['positionId']);
         }
     }
 }
