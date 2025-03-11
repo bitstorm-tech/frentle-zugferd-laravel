@@ -3,74 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Rechnung Nr. RE-2025-0308</title>
+        <title>Rechnungsvorlage</title>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <!-- @vite(["resources/css/app.css", "resources/js/app.js"]) -->
         <style>
-            body {
-                font-family: Arial, Helvetica, sans-serif;
-                margin: 0;
-                padding: 20px;
-                color: #333;
-                background-color: #f9f9f9;
-            }
-
-            .invoice-header {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 40px;
-            }
-
-            .company-details {
-                flex: 1;
-            }
-
-            .company-name {
-                font-size: 28px;
-                font-weight: bold;
-                color: #2c5282;
-                margin-bottom: 5px;
-            }
-
-            .company-address {
-                font-size: 14px;
-                line-height: 1.5;
-            }
-
-            .invoice-info {
-                text-align: right;
-                flex: 1;
-            }
-
-            .invoice-title {
-                font-size: 24px;
-                font-weight: bold;
-                margin-bottom: 15px;
-                color: #2c5282;
-            }
-
-            .invoice-details {
-                font-size: 14px;
-                line-height: 1.6;
-            }
-
-            .customer-section {
-                margin-bottom: 30px;
-            }
-
-            .section-title {
-                font-size: 16px;
-                font-weight: bold;
-                text-transform: uppercase;
-                margin-bottom: 10px;
-                color: #555;
-                border-bottom: 1px solid #ddd;
-                padding-bottom: 5px;
-            }
-
-            .customer-details {
-                font-size: 14px;
-                line-height: 1.5;
-            }
-
             table {
                 width: 100%;
                 border-collapse: collapse;
@@ -164,54 +100,41 @@
         </style>
     </head>
     <body>
-        <div class="invoice-header">
-            <div class="company-details">
-                <div class="company-name">Musterfirma GmbH</div>
-                <div class="company-address">
-                    Musterstraße 123
-                    <br />
-                    10115 Berlin
-                    <br />
-                    Deutschland
-                    <br />
-                    Tel: +49 30 123456789
-                    <br />
-                    E-Mail: info@musterfirma.de
-                    <br />
-                    Web: www.musterfirma.de
+        <div class="mb-8 flex justify-between">
+            <div class="flex flex-col">
+                <div class="mb-2 text-2xl text-blue-900"><strong>Musterfirma GmbH</strong></div>
+                <div class="flex flex-col text-sm">
+                    <span>Musterstraße 123</span>
+                    <span>10115 Berlin</span>
+                    <span>Deutschland</span>
+                    <span>Tel: +49 30 123456789</span>
+                    <span>E-Mail: info@musterfirma.de</span>
+                    <span>Web: www.musterfirma.de</span>
                 </div>
             </div>
-            <div class="invoice-info">
-                <div class="invoice-title">RECHNUNG</div>
-                <div class="invoice-details">
-                    Rechnungsnummer: RE-2025-0308
-                    <br />
-                    Rechnungsdatum: 08.03.2025
-                    <br />
-                    Leistungszeitraum: 01.02.2025 - 28.02.2025
-                    <br />
-                    Kundennummer: KD-2023-0042
-                    <br />
-                    Umsatzsteuer-ID: DE123456789
+            <div class="flex flex-col items-end">
+                <div class="mb-2 text-2xl text-blue-900"><strong>RECHNUNG</strong></div>
+                <div class="flex flex-col items-end text-sm">
+                    <span>Rechnungsnummer: RE-2025-0308</span>
+                    <span>Rechnungsdatum: 08.03.2025</span>
+                    <span>Leistungszeitraum: 01.02.2025 - 28.02.2025</span>
+                    <span>Kundennummer: KD-2023-0042</span>
+                    <span>Umsatzsteuer-ID: DE123456789</span>
                 </div>
             </div>
         </div>
 
-        <div class="customer-section">
-            <div class="section-title">Rechnungsempfänger</div>
-            <div class="customer-details">
+        <div class="mb-5">
+            <div class="mb-2 border-b border-gray-300 pb-2 text-gray-600 uppercase">
+                <strong>Rechnungsempfänger</strong>
+            </div>
+            <div class="flex flex-col text-sm">
                 <strong>Beispiel AG</strong>
-                <br />
-                z.Hd. Herrn Max Mustermann
-                <br />
-                Beispielweg 42
-                <br />
-                20354 Hamburg
-                <br />
-                Deutschland
-                <br />
-                <br />
-                Ihre Bestellnummer: B-2025-0278
+                <span>z.Hd. Herrn Max Mustermann</span>
+                <span>Beispielweg 42</span>
+                <span>20354 Hamburg</span>
+                <span>Deutschland</span>
+                <span class="mt-5">Ihre Bestellnummer: B-2025-0278</span>
             </div>
         </div>
 
@@ -268,24 +191,26 @@
                 <span>2.564,33 €</span>
             </div>
         </div>
-
-        <div class="payment-info">
-            <h3>Zahlungsinformationen</h3>
-            <div class="payment-details">
-                <p>Bitte überweisen Sie den Rechnungsbetrag innerhalb von 14 Tagen auf unser unten genanntes Konto.</p>
-                <p>
-                    <strong>Bankverbindung:</strong>
-                    <br />
-                    Deutsche Geschäftsbank
-                    <br />
-                    IBAN: DE12 3456 7890 1234 5678 90
-                    <br />
-                    BIC: DEUTDEBBXXX
+        <!-- ------------------- -->
+        <!-- Payment information -->
+        <!-- ------------------- -->
+        <div class="mb-12 border-l-4 border-l-blue-800 bg-gray-200 p-2">
+            <h3 class="text-blue-900"><strong>Zahlungsinformationen</strong></h3>
+            <div class="flex flex-col text-sm">
+                <p class="my-3">
+                    Bitte überweisen Sie den Rechnungsbetrag innerhalb von 14 Tagen auf unser unten genanntes Konto.
                 </p>
+                <strong>Bankverbindung:</strong>
+                <span>Deutsche Geschäftsbank</span>
+                <span>IBAN: DE12 3456 7890 1234 5678 90</span>
+                <span>BIC: DEUTDEBBXXX</span>
             </div>
         </div>
 
-        <div class="footer">
+        <!-- ------ -->
+        <!-- Footer -->
+        <!-- ------ -->
+        <div class="flex flex-col items-center gap-3 border-t border-gray-300 pt-2 text-sm text-gray-500">
             <p>
                 <strong>Musterfirma GmbH</strong>
                 | Geschäftsführer: Erika Musterfrau | Amtsgericht Berlin-Charlottenburg HRB 123456

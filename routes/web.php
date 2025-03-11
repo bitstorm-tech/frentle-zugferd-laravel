@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CreateInvoiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'welcome');
+
+Route::view('/template', 'invoice-template');
+
+Route::resource('/create-invoice', CreateInvoiceController::class);

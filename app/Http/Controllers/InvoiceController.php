@@ -21,15 +21,15 @@ class InvoiceController
 
         $body = $request->json()->all();
         $userId = $body['userId'];
-        $xmlData = $body['invoiceData'];
+        $invoiceData = $body['invoiceData'];
 
         $folderName = $this->createFolder($userId);
 
         $pdfPath = "{$folderName}/invoice.pdf";
-        $this->generatePdf($pdfPath);
+        $this->generatePdf($pdfPath, $invoiceData);
 
         $xmlPath = "{$folderName}/invoice.xml";
-        $this->generateXml($xmlPath, $xmlData);
+        $this->generateXml($xmlPath, $invoiceData);
 
         $mergedPath = "{$folderName}/merged.pdf";
         $this->mergePdfAndXml($pdfPath, $xmlPath, $mergedPath);
@@ -51,14 +51,9 @@ class InvoiceController
         return $folderName;
     }
 
-    private function generatePdf(string $outputPath): void
+    private function generatePdf(string $outputPath, array $invoiceData): void
     {
-        $pdfData = [
-            'name' => 'Ibims!!',
-            'date' => now()->format('Y-m-d'),
-        ];
-
-        $this->pdfService->generateAndStorePdf($pdfData, $outputPath);
+        $this->pdfService->generateAndStorePdf($invoiceData, $outputPath);
     }
 
     private function generateXml(string $outputPath, array $xmlData): void

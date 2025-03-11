@@ -7,9 +7,9 @@ use horstoeko\zugferdlaravel\Facades\ZugferdLaravel;
 
 class PdfService
 {
-    public function generateAndStorePdf(array $data, string $outputPath, string $template = 'invoice-template')
+    public function generateAndStorePdf(array $invoiceData, string $outputPath, string $template = 'invoice-template')
     {
-        $pdf = Pdf::loadView($template, $data);
+        $pdf = Pdf::loadView($template, $invoiceData);
         $pdf->save($outputPath, 'local');
     }
 
