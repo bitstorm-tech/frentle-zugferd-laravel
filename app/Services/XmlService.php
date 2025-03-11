@@ -85,7 +85,15 @@ class XmlService
                 $document->addDocumentSellerVATRegistrationNumber($value);
                 break;
             case 'sellerAddress':
-                $document->setDocumentSellerAddress($value);
+                $document->setDocumentSellerAddress(
+                    $value['line1'],
+                    $value['line2'],
+                    $value['line3'],
+                    $value['postCode'],
+                    $value['city'],
+                    $value['country'],
+                    $value['subDivision'],
+                );
                 break;
             case 'sellerContact':
                 $document->setDocumentSellerContact(
@@ -103,7 +111,15 @@ class XmlService
                 $document->setDocumentBuyer($value);
                 break;
             case 'buyerAddress':
-                $document->setDocumentBuyerAddress($value);
+                $document->setDocumentBuyerAddress(
+                    $value['line1'],
+                    $value['line2'],
+                    $value['line3'],
+                    $value['postCode'],
+                    $value['city'],
+                    $value['country'],
+                    $value['subDivision'],
+                );
                 break;
             case 'buyerContact':
                 $document->setDocumentBuyerContact(
@@ -130,7 +146,15 @@ class XmlService
                 $document->setDocumentShipTo($value);
                 break;
             case 'shipToAddress':
-                $document->setDocumentShipToAddress($value);
+                $document->setDocumentShipToAddress(
+                    $value['line1'],
+                    $value['line2'],
+                    $value['line3'],
+                    $value['postCode'],
+                    $value['city'],
+                    $value['country'],
+                    $value['subDivision'],
+                );
                 break;
             case 'deliveryDate':
                 $document->setDocumentSupplyChainEvent(DateTime::createFromFormat('Ymd', '20250101'));
