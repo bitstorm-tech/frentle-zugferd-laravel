@@ -5,7 +5,7 @@
     "userId": "4829128",
     "invoiceData": {
         "invoiceNumber": "20250101-4711",
-        "notes": "Lieferant GmbH / Lieferantenstraße 20 / 80333 München / Deutschland / Geschäftsführer: Hans Muster / Handelsregisternummer: H A 123",
+        "notes": "Lieferant GmbH | Lieferantenstraße 20 | 80333 München | Deutschland | Geschäftsführer: Hans Muster | Handelsregisternummer: H A 123",
         "billingPeriod": "01.01.2025 - 31.01.2025",
         "tenderOrLotReferenceDocument": "LOS 738625",
         "invoicedObjectReferenceDocument": "125",
