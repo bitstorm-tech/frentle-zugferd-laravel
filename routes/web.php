@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CreateInvoiceController;
+use App\Providers\TestDataProvider;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome');
-
-Route::view('/template', 'invoice-template');
-
+Route::view('/template', 'invoice-template', TestDataProvider::testData());
 Route::resource('/create-invoice', CreateInvoiceController::class);

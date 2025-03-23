@@ -64,6 +64,7 @@
                 font-weight: bold;
                 text-transform: uppercase;
                 margin-bottom: 10px;
+                margin-top: 15px;
                 color: #555;
                 border-bottom: 1px solid #ddd;
                 padding-bottom: 5px;
@@ -170,33 +171,48 @@
         <div class="invoice-container">
             <div class="invoice-header">
                 <div class="company-details">
-                    <div class="company-name">Musterfirma GmbH</div>
+                    <div class="company-name">{{ $sellerName }}</div>
                     <div class="company-address">
-                        Musterstraße 123
+                        {{ $sellerAddress["line1"] }}
                         <br />
-                        10115 Berlin
+
+                        @if (! empty($sellerAddress["line2"]))
+                            {{ $sellerAddress["line2"] }}
+                            <br />
+                        @endif
+
+                        @if (! empty($sellerAddress["line3"]))
+                            {{ $sellerAddress["line3"] }}
+                            <br />
+                        @endif
+
+                        {{ $sellerAddress["postCode"] }} {{ $sellerAddress["city"] }}
                         <br />
-                        Deutschland
+                        {{ $sellerAddress["country"] }}
                         <br />
-                        Tel: +49 30 123456789
+                        Tel: {{ $sellerContact["contactPhoneNo"] }}
                         <br />
-                        E-Mail: info@musterfirma.de
-                        <br />
-                        Web: www.musterfirma.de
+
+                        @if (! empty($sellerAddress["contactFaxNo"]))
+                            {{ $sellerAddress["contactFaxNo"] }}
+                            <br />
+                        @endif
+
+                        E-Mail: {{ $sellerContact["contactEmailAddress"] }}
                     </div>
                 </div>
                 <div class="invoice-info">
                     <div class="invoice-title">RECHNUNG</div>
                     <div class="invoice-details">
-                        Rechnungsnummer: RE-2025-0308
+                        Rechnungsnummer: {{ $invoiceNumber }}
                         <br />
-                        Rechnungsdatum: 08.03.2025
+                        Rechnungsdatum: {{ $deliveryDate }}
                         <br />
-                        Leistungszeitraum: 01.02.2025 - 28.02.2025
+                        Leistungszeitraum: {{ $billingPeriod }}
                         <br />
-                        Kundennummer: KD-2023-0042
+                        Kundennummer: {{ $contractReferencedDocument }}
                         <br />
-                        Umsatzsteuer-ID: DE123456789
+                        Umsatzsteuer-ID: {{ $buyerVATRegistrationNumber }}
                     </div>
                 </div>
             </div>
@@ -204,15 +220,25 @@
             <div class="customer-section">
                 <div class="section-title">Rechnungsempfänger</div>
                 <div class="customer-details">
-                    <strong>Beispiel AG</strong>
+                    <strong>{{ $buyerName }}</strong>
                     <br />
-                    z.Hd. Herrn Max Mustermann
+                    z.Hd. {{ $buyerContact["contactPersonName"] }}
                     <br />
-                    Beispielweg 42
+                    {{ $buyerAddress["line1"] }}
                     <br />
-                    20354 Hamburg
+                    @if (! empty($buyerAddress["line2"]))
+                        {{ $buyerAddress["line2"] }}
+                        <br />
+                    @endif
+
+                    @if (! empty($buyerAddress["line3"]))
+                        {{ $buyerAddress["line3"] }}
+                        <br />
+                    @endif
+
+                    {{ $buyerAddress["postCode"] }} {{ $buyerAddress["city"] }}
                     <br />
-                    Deutschland
+                    {{ $buyerAddress["country"] }}
                     <br />
                     <br />
                     Ihre Bestellnummer: B-2025-0278
@@ -231,45 +257,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Website-Optimierung</td>
-                        <td class="text-center">15</td>
-                        <td class="text-center">Std.</td>
-                        <td class="text-right">95,00 €</td>
-                        <td class="text-right">1.425,00 €</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Content-Erstellung</td>
-                        <td class="text-center">8</td>
-                        <td class="text-center">Std.</td>
-                        <td class="text-right">85,00 €</td>
-                        <td class="text-right">680,00 €</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Premium-Hosting (monatlich)</td>
-                        <td class="text-center">1</td>
-                        <td class="text-center">Monat</td>
-                        <td class="text-right">49,90 €</td>
-                        <td class="text-right">49,90 €</td>
-                    </tr>
+                    @foreach ($positions as $position)
+                        <tr>
+                            <td>{{ $position["positionId"] }}</td>
+                            <td>{{ $position["productDetails"] }}</td>
+                            <td class="text-center">{{ $position["quantity"] }}</td>
+                            <td class="text-center">{{ $position["unitType"] }}</td>
+                            <td class="text-right">{{ $position["netPrice"] }} €</td>
+                            <td class="text-right">{{ $position["lineSummation"] }} €</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
 
             <div class="total-section">
                 <div class="total-row">
                     <span>Nettobetrag:</span>
-                    <span>2.154,90 €</span>
+                    <span>{{ $summation["duePayableAmount"] }} €</span>
                 </div>
                 <div class="total-row">
-                    <span>zzgl. 19% Mehrwertsteuer:</span>
-                    <span>409,43 €</span>
+                    <span>zzgl. {{ $tax["rateApplicablePercent"] }}% Mehrwertsteuer:</span>
+                    <span>{{ $tax["basisAmount"] }} €</span>
                 </div>
                 <div class="total-row final">
                     <span>Rechnungsbetrag:</span>
-                    <span>2.564,33 €</span>
+                    <span>{{ $summation["grandTotalAmount"] }} €</span>
                 </div>
             </div>
 

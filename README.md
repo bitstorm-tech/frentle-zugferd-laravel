@@ -35,6 +35,7 @@
         },
         "sellerCommunication": "sales@lieferant.de",
         "buyerName": "Kunde AG",
+        "buyerVATRegistrationNumber":"DE-09090909",
         "buyerAddress": {
             "line1": "Kundenstraße 15",
             "line2": "",
@@ -72,6 +73,7 @@
                 "productDetails": "iPhone 16 Pro",
                 "netPrice": "1699.00",
                 "quantity": "2",
+                "unitType":"Stück",
                 "tax": "19",
                 "lineSummation": "3398.00"
             },
@@ -80,6 +82,7 @@
                 "productDetails": "AirPods Pro",
                 "netPrice": "280.00",
                 "quantity": "2",
+                "unitType":"Stück",
                 "tax": "19",
                 "lineSummation": "560.00"
             }
