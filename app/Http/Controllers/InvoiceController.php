@@ -24,13 +24,14 @@ class InvoiceController
         $body = $request->json()->all();
         $userId = $body['userId'];
         $invoiceData = $body['invoiceData'];
+        $invoiceNumber = $invoiceData['invoiceNumber'];
 
-        $folderName = $this->createFolder($userId);
+        $folderName = $this->createFolder($userId, $invoiceNumber);
 
-        $pdfPath = "{$folderName}/invoice.pdf";
+        $pdfPath = "{$folderName}/{$invoiceNumber}.pdf";
         $this->generatePdf($pdfPath, $invoiceData);
 
-        $xmlPath = "{$folderName}/invoice.xml";
+        $xmlPath = "{$folderName}/{$invoiceNumber}.xml";
         $this->generateXml($xmlPath, $invoiceData);
 
         $mergedPath = "{$folderName}/merged.pdf";
@@ -41,13 +42,9 @@ class InvoiceController
         return response()->download($file, 'invoice.pdf', ['Content-Type: application/pdf']);
     }
 
-    private function createFolder(string $userId): string
+    private function createFolder(string $userId, string $invoiceNumber): string
     {
-
-        $today = now()->format('Y_m_d');
-        $uuid = uuid_create();
-        $invoiceId = "invoice_{$today}_{$uuid}";
-        $folderName = "invoices/user_{$userId}/{$invoiceId}";
+        $folderName = "invoices/{$userId}/{$invoiceNumber}";
         Storage::makeDirectory($folderName);
 
         return $folderName;
