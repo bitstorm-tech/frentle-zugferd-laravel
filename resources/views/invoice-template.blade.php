@@ -308,10 +308,7 @@
             </div>
 
             <div class="footer">
-                {{-- <p> --}}
-                {{-- <strong>Musterfirma GmbH</strong> --}}
-                {{-- | Geschäftsführer: Erika Musterfrau | Amtsgericht Berlin-Charlottenburg HRB 123456 --}}
-                {{-- </p> --}}
+                <p>{{ $notes }}</p>
                 <p>Steuernummer: {{ $sellerTaxNumber }} | USt-IdNr.: {{ $sellerVATRegistrationNumber }}</p>
                 <p>{{ $paymentBankName }} | IBAN: {{ $paymentIBAN }} | BIC: {{ $paymentBIC }}</p>
             </div>
