@@ -136,17 +136,15 @@ class XmlService
 
             'positions' => $this->addPositions($document, $value),
 
-            'tax' => $document->addDocumentTax(
-                ZugferdVatCategoryCodes::STAN_RATE,
-                ZugferdVatTypeCodes::VALUE_ADDED_TAX,
-                (float) $value['basisAmount'],
-                (float) $value['calculatedAmount'],
-                (float) $value['rateApplicablePercent'],
-            ),
+            'tax' => $this->addTax($document, $value),
 
             'summation' => $document->setDocumentSummation(
                 (float) $value['grandTotalAmount'],
                 (float) $value['duePayableAmount'],
+                (float) $value['lineTotalAmount'],
+                0,
+                0,
+                (float) $value['lineTotalAmount'],
             ),
 
             'invoiceNumber', 'buyerVATRegistrationNumber' => true, // do nothing but also don't print an error
@@ -168,6 +166,19 @@ class XmlService
                 (float) $position['tax']
             );
             $document->setDocumentPositionLineSummation((float) $position['positionId']);
+        }
+    }
+
+    private function addTax(ZugferdDocumentBuilder $document, array $tax): void
+    {
+        foreach ($tax as $taxItem) {
+            $document->addDocumentTax(
+                ZugferdVatCategoryCodes::STAN_RATE,
+                ZugferdVatTypeCodes::VALUE_ADDED_TAX,
+                (float) $taxItem['basisAmount'],
+                (float) $taxItem['calculatedAmount'],
+                (float) $taxItem['rateApplicablePercent'],
+            );
         }
     }
 }

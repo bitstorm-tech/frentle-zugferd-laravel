@@ -13,6 +13,10 @@
         "procuringProject": "PROJ-2025-001-1",
         "paymentMeanToDirectDebit": "DE12500105170648489890",
         "paymentTerm": "Wird von Konto DE12500105170648489890 abgebucht",
+        "paymentDeadline": "14",
+        "paymentBankName": "Deutsche Bank",
+        "paymentIBAN": "DE58 50070024 0123456789",
+        "paymentBIC": "DEUTDEFFXXX",
         "sellerName": "Lieferant GmbH",
         "sellerGlobalId": "4000001123452",
         "sellerTaxNumber": "201/113/40209",
@@ -85,16 +89,34 @@
                 "unitType":"Stück",
                 "tax": "19",
                 "lineSummation": "560.00"
+            },
+            {
+                "positionId": "3",
+                "productDetails": "Red Apple",
+                "netPrice": "1.00",
+                "quantity": "10",
+                "unitType":"Stück",
+                "tax": "7",
+                "lineSummation": "10.00"
             }
         ],
-        "tax": {
-            "basisAmount": "100.0",
-            "calculatedAmount": "19.0",
-            "rateApplicablePercent": "19.0"
-        },
+        "tax": [
+            {
+                "basisAmount": "3958.00",
+                "calculatedAmount": "752.02",
+                "rateApplicablePercent": "19"
+            },
+            {
+                "basisAmount": "10.00",
+                "calculatedAmount": "0.70",
+                "rateApplicablePercent": "7"
+            }
+        ],
         "summation": {
-            "grandTotalAmount": "100.0",
-            "duePayableAmount": "100.0"
+            "grandTotalAmount": "4720.72",
+            "duePayableAmount": "4720.72",
+            "lineTotalAmount":"3968.0",
+            "taxTotalAmount":"752.72"
         }
     }
 }

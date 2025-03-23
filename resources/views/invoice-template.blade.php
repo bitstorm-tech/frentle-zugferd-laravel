@@ -13,7 +13,7 @@
 
             .invoice-container {
                 margin: 0 auto;
-                padding: 30px;
+                padding: 10px;
                 background-color: white;
             }
 
@@ -273,12 +273,15 @@
             <div class="total-section">
                 <div class="total-row">
                     <span>Nettobetrag:</span>
-                    <span>{{ $summation["duePayableAmount"] }} €</span>
+                    <span>{{ $summation["lineTotalAmount"] }} €</span>
                 </div>
-                <div class="total-row">
-                    <span>zzgl. {{ $tax["rateApplicablePercent"] }}% Mehrwertsteuer:</span>
-                    <span>{{ $tax["basisAmount"] }} €</span>
-                </div>
+                @foreach ($tax as $taxItem)
+                    <div class="total-row">
+                        <span>zzgl. {{ $taxItem["rateApplicablePercent"] }}% Mehrwertsteuer:</span>
+                        <span>{{ $taxItem["calculatedAmount"] }} €</span>
+                    </div>
+                @endforeach
+
                 <div class="total-row final">
                     <span>Rechnungsbetrag:</span>
                     <span>{{ $summation["grandTotalAmount"] }} €</span>
@@ -289,27 +292,28 @@
                 <h3>Zahlungsinformationen</h3>
                 <div class="payment-details">
                     <p>
-                        Bitte überweisen Sie den Rechnungsbetrag innerhalb von 14 Tagen auf unser unten genanntes Konto.
+                        Bitte überweisen Sie den Rechnungsbetrag innerhalb von {{ $paymentDeadline }} Tagen auf unser
+                        unten genanntes Konto.
                     </p>
                     <p>
                         <strong>Bankverbindung:</strong>
                         <br />
-                        Deutsche Geschäftsbank
+                        {{ $paymentBankName }}
                         <br />
-                        IBAN: DE12 3456 7890 1234 5678 90
+                        IBAN: {{ $paymentIBAN }}
                         <br />
-                        BIC: DEUTDEBBXXX
+                        BIC: {{ $paymentBIC }}
                     </p>
                 </div>
             </div>
 
             <div class="footer">
-                <p>
-                    <strong>Musterfirma GmbH</strong>
-                    | Geschäftsführer: Erika Musterfrau | Amtsgericht Berlin-Charlottenburg HRB 123456
-                </p>
-                <p>Steuernummer: 18/765/43210 | USt-IdNr.: DE123456789</p>
-                <p>Deutsche Geschäftsbank | IBAN: DE12 3456 7890 1234 5678 90 | BIC: DEUTDEBBXXX</p>
+                {{-- <p> --}}
+                {{-- <strong>Musterfirma GmbH</strong> --}}
+                {{-- | Geschäftsführer: Erika Musterfrau | Amtsgericht Berlin-Charlottenburg HRB 123456 --}}
+                {{-- </p> --}}
+                <p>Steuernummer: {{ $sellerTaxNumber }} | USt-IdNr.: {{ $sellerVATRegistrationNumber }}</p>
+                <p>{{ $paymentBankName }} | IBAN: {{ $paymentIBAN }} | BIC: {{ $paymentBIC }}</p>
             </div>
         </div>
     </body>
