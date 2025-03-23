@@ -46,9 +46,8 @@ return [
     |
     */
     'commands' => [
-        'About' => 'php artisan solo:about',
-        'Logs' => EnhancedTailCommand::file(storage_path('logs/laravel.log')),
         'Serve' => 'php artisan serve',
+        'Logs' => EnhancedTailCommand::file(storage_path('logs/laravel.log')),
         'Vite' => 'npm run dev',
         'Make' => new MakeCommand,
         // 'HTTP' => 'php artisan serve',
@@ -59,6 +58,7 @@ return [
         'Pint' => Command::from('./vendor/bin/pint --ansi')->lazy(),
         'Queue' => Command::from('php artisan queue:work')->lazy(),
         'Tests' => Command::from('php artisan test --colors=always')->withEnv(['APP_ENV' => 'testing'])->lazy(),
+        'About' => 'php artisan solo:about',
     ],
 
     /*
