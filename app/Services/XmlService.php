@@ -147,7 +147,12 @@ class XmlService
                 (float) $value['lineTotalAmount'],
             ),
 
-            'invoiceNumber', 'buyerVATRegistrationNumber' => true, // do nothing but also don't print an error
+            'invoiceNumber',
+            'buyerVATRegistrationNumber',
+            'paymentDeadline',
+            'paymentBankName',
+            'paymentIBAN',
+            'paymentBIC' => true, // do nothing but also don't print an error
 
             default => Log::error("Unknown key: '{$key}'"),
         };
